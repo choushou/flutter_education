@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter_share_go/flutter_share_go.dart';
 import 'package:flutter/material.dart';
 
 class DraggablePage extends StatefulWidget {
@@ -308,7 +308,9 @@ child: footerMenu("メニュー", test),
       child:Container(
         padding: const EdgeInsets.only(left: 0,right: 0,top: 8,bottom: 7),
         child:FlatButton(
-          onPressed: test,
+          onPressed: () async {
+            FlutterShareGo.shareToTwitterPlatform("test share to twitter content", "http://tryenough.com");
+          },
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -321,6 +323,7 @@ child: footerMenu("メニュー", test),
       ),
     );
   }
+
 
   test() {
     print("item");
