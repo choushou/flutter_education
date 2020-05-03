@@ -229,17 +229,17 @@ Container(
                         ),
                         Container(
                           padding: const EdgeInsets.only(top: 17),
-                          width:80,
+                          width:70,
                           child: footerMenu("予定\n管理", test),
                         ),
 
                         Container(
                           padding: const EdgeInsets.only(top: 17),
-                          width:80,
+                          width:70,
                           child: footerMenu("目標\n管理", test),
                         ),
                         Container(
-                          padding: const EdgeInsets.only(top: 17),
+                          padding: const EdgeInsets.only(top: 17,right: 10),
                           width:80,
                           child: footerMenu("連絡", test),
                         ),
