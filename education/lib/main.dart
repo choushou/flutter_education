@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+import 'draggable_page.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -17,6 +19,9 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        'DraggablePage': (context) => DraggablePage(),
+      },
     );
   }
 }
@@ -80,41 +85,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   deleteData();
                 },
               ),
+              RaisedButton(
+                onPressed: () {
+                  navigateTo('DraggablePage');
+                },
+                child: Text('DraggablePage'),
+              ),
             ],
           )
       ), //center
     );
-
-//    return Scaffold(
-//      appBar: AppBar(
-//        // Here we take the value from the MyHomePage object that was created by
-//        // the App.build method, and use it to set our appbar title.
-//        title: Text(widget.title),
-//      ),
-//      body: Center(
-//        // Center is a layout widget. It takes a single child and positions it
-//        // in the middle of the parent.
-//        child: Column(
-//
-//          mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            Text(
-//              'You have pushed the button this many times:',
-//            ),
-//            Text(
-//              '$_counter',
-//              style: Theme.of(context).textTheme.headline4,
-//            ),
-//          ],
-//        ),
-//      ),
-//      floatingActionButton: FloatingActionButton(
-//        onPressed: _incrementCounter,
-//        tooltip: 'Increment',
-//        child: Icon(Icons.add),
-//      ),
-//    );
   }
+
+  navigateTo(name) {
+    Navigator.of(context).pushNamed(name);
+  }
+
   void createRecord(){
     databaseReference.child("counter").set({
       'title': 'Mastering EJB',
