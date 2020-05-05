@@ -1,3 +1,4 @@
+import 'package:education/input_email_page.dart';
 import 'package:education/login_signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'DraggablePage': (context) => DraggablePage(),
         'LoginSignupPage': (context) => LoginSignupPage(),
+       // 'InputEmailPage': (context) => InputEmailPage(),
       },
     );
   }

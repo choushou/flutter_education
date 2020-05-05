@@ -1,16 +1,15 @@
-import 'package:education/input_email_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-class LoginSignupPage extends StatefulWidget {
+class InputPasswardPage extends StatefulWidget {
   @override
-  _LoginSignupPageState createState() => _LoginSignupPageState();
+  _InputPasswardPageState createState() => _InputPasswardPageState();
 }
 
-class _LoginSignupPageState extends State<LoginSignupPage> {
+class _InputPasswardPageState extends State<InputPasswardPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -30,7 +29,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           children: <Widget>[
             Container(
               child: const Text(
-                'すでに会員の方は\nこちらからログインしてください',
+                '新しいパスワードを\n入力してください',
                 style: TextStyle(
                     fontFamily: "ヒラギノ角ゴ ProN W3",
                     fontSize: 20.0,
@@ -43,7 +42,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               padding: const EdgeInsets.only(top: 0, bottom: 10),
               child: Divider(
                 height: 2.0,
-                //indent: 0.0,
                 color: Colors.black,
               ),
             ),
@@ -54,7 +52,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                   TextFormField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                      labelText: 'メールアドレス',
+                      labelText: 'パスワード',
                       hintText: '入力してください',
                       contentPadding: EdgeInsets.only(left: 40),
                       border: InputBorder.none,
@@ -80,17 +78,14 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                       WhitelistingTextInputFormatter(RegExp("[a-z,A-Z,0-9]")),
                     ],
                     decoration: const InputDecoration(
-                      labelText: 'パスワード',
-                      hintText: '6文字以上の英数字',
+                      labelText: '2回目\nパスワード',
+                      hintText: '入力してください',
                       contentPadding: EdgeInsets.only(left: 40),
                       border: InputBorder.none,
                     ),
                     validator: (String value) {
                       if (value.isEmpty) {
                         return 'Please enter some text';
-                      }
-                      if (value.length < 6) {
-                        return '6文字以上の英数字を入力してください';
                       }
                       return null;
                     },
@@ -99,28 +94,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(top: 10, bottom: 0),
+              padding: const EdgeInsets.only(top: 10, bottom: 40),
               child: Divider(
                 height: 2.0,
                 //indent: 0.0,
                 color: Colors.black,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 20, bottom: 40),
-              child: FlatButton(
-                onPressed:(){
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => InputEmailPage()));
-                  },
-                child: Text(
-                  "パスワードを忘れた方はこちら",
-                  style: TextStyle(
-                      fontFamily: "ヒラギノ角ゴ ProN W3",
-                      fontSize: 20.0,
-                      color: Color.fromRGBO(32, 83, 253, 1),
-                      decoration: TextDecoration.underline),
-                ),
               ),
             ),
             Container(
@@ -137,7 +115,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                   }
                 },
                 child: Text(
-                  "ログイン",
+                  "パスワード再設定",
                   style: TextStyle(
                     fontFamily: "ヒラギノ角ゴ ProN W3",
                     fontSize: 20.0,
@@ -148,21 +126,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             ),
           ],
         ),
-//            Container(
-//              alignment: Alignment.center,
-//              padding: const EdgeInsets.symmetric(horizontal: 16),
-//              child: Text(
-//                _success == null
-//                    ? ''
-//                    : (_success
-//                        ? 'Successfully signed in ' + _userEmail
-//                        : 'Sign in failed'),
-//                style: TextStyle(color: Colors.red),
-//              ),
-//            )
-//          ],
-//        ),
-//      ),
       ),
     );
   }
