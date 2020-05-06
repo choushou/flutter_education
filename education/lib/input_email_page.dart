@@ -1,6 +1,6 @@
-import 'package:education/input_passward_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flushbar/flushbar.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -24,6 +24,7 @@ class _InputEmailPageState extends State<InputEmailPage> {
         title: Text('Rappid'),
         backgroundColor: Color.fromRGBO(56, 67, 111, 1),
       ),
+      resizeToAvoidBottomPadding: false,
       body: Container(
         child: Column(
           children: <Widget>[
@@ -59,6 +60,7 @@ class _InputEmailPageState extends State<InputEmailPage> {
                       border: InputBorder.none,
                     ),
                     validator: (String value) {
+                      _userEmail = value;
                       if (value.isEmpty) {
                         return 'Please enter some text';
                       }
@@ -66,6 +68,7 @@ class _InputEmailPageState extends State<InputEmailPage> {
                     },
                   ),
                   Container(
+
                     padding: const EdgeInsets.only(top: 10, bottom: 40),
                     child: Divider(
                       height: 2.0,
@@ -86,7 +89,7 @@ class _InputEmailPageState extends State<InputEmailPage> {
                 textColor: Colors.white,
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    _signInWithEmailAndPassword();
+                    _passwordSetting();
                   }
                 },
                 child: Text(
@@ -108,24 +111,20 @@ class _InputEmailPageState extends State<InputEmailPage> {
   test() {
     print("item");
   }
-
-  void _signInWithEmailAndPassword() async {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => InputPasswardPage()));
-
-    final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
-      email: _emailController.text,
-      password: _passwordController.text,
-    )).user;
-    if (user != null) {
-
-      setState(() {
-        _success = true;
-        _userEmail = user.email;
-      });
-    } else {
-      _success = false;
-    }
+  //sendPasswordResetEmailメソッドを使用して、ユーザーのパスワードを設定
+  Future _passwordSetting() async {
+    await _auth.sendPasswordResetEmail(email: _userEmail).then((val){
+      Navigator.pop(context);
+    }).catchError((error) {
+      print("ERROR=> $error");
+      Flushbar(
+        message: "メールアドレスが登録されていません",
+        backgroundColor: Colors.red,
+        margin: EdgeInsets.all(8),
+        borderRadius: 8,
+        duration: Duration(seconds: 3),
+      )..show(context);
+    });
   }
 
   @override

@@ -25,6 +25,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         title: Text('Rappid'),
         backgroundColor: Color.fromRGBO(56, 67, 111, 1),
       ),
+      resizeToAvoidBottomPadding: false,
       body: Container(
         child: Column(
           children: <Widget>[
@@ -148,21 +149,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             ),
           ],
         ),
-//            Container(
-//              alignment: Alignment.center,
-//              padding: const EdgeInsets.symmetric(horizontal: 16),
-//              child: Text(
-//                _success == null
-//                    ? ''
-//                    : (_success
-//                        ? 'Successfully signed in ' + _userEmail
-//                        : 'Sign in failed'),
-//                style: TextStyle(color: Colors.red),
-//              ),
-//            )
-//          ],
-//        ),
-//      ),
       ),
     );
   }
@@ -175,8 +161,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
       email: _emailController.text,
       password: _passwordController.text,
-    ))
-        .user;
+    )).user;
+
     if (user != null) {
       setState(() {
         _success = true;
