@@ -1,4 +1,3 @@
-import 'package:education/input_email_page.dart';
 import 'package:education/login_signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -24,7 +23,6 @@ class MyApp extends StatelessWidget {
       routes: {
         'DraggablePage': (context) => DraggablePage(),
         'LoginSignupPage': (context) => LoginSignupPage(),
-       // 'InputEmailPage': (context) => InputEmailPage(),
       },
     );
   }
@@ -41,20 +39,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-
-      _counter++;
-    });
-  }
 
   final databaseReference = FirebaseDatabase.instance.reference();
 
   @override
   Widget build(BuildContext context) {
-    getData();
     return Scaffold(
       appBar: AppBar(
         title: Text('Firebase Connect'),
@@ -63,32 +52,6 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-
-              RaisedButton(
-                child: Text('Create Record'),
-                onPressed: () {
-                  createRecord();
-                },
-              ),
-
-              RaisedButton(
-                child: Text('View Record'),
-                onPressed: () {
-                  getData();
-                },
-              ),
-              RaisedButton(
-                child: Text('Udate Record'),
-                onPressed: () {
-                  updateData();
-                },
-              ),
-              RaisedButton(
-                child: Text('Delete Record'),
-                onPressed: () {
-                  deleteData();
-                },
-              ),
               RaisedButton(
                 onPressed: () {
                   navigateTo('DraggablePage');
@@ -110,31 +73,4 @@ class _MyHomePageState extends State<MyHomePage> {
   navigateTo(name) {
     Navigator.of(context).pushNamed(name);
   }
-
-  void createRecord(){
-    databaseReference.child("counter").set({
-      'title': 'Mastering EJB',
-      'description': 'Programming Guide for J2EE'
-    });
-    databaseReference.child("message").set({
-      'title': 'Flutter in Action',
-      'description': 'Complete Programming Guide to learn Flutter'
-    });
-  }
-  void getData(){
-    databaseReference.once().then((DataSnapshot snapshot) {
-      print('Data : ${snapshot.value}');
-    });
-  }
-
-  void updateData(){
-    databaseReference.child('counter').update({
-      'description': 'J2EE complete Reference'
-    });
-  }
-
-  void deleteData(){
-    databaseReference.child('counter').remove();
-  }
-
 }
