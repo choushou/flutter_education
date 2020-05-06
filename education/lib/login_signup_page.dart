@@ -64,6 +64,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                       if (value.isEmpty) {
                         return 'Please enter some text';
                       }
+
+                      if (!isEmail(value)) {
+                        return '正しいメールを入力してください';
+                      }
                       return null;
                     },
                   ),
@@ -93,6 +97,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                       if (value.length < 6) {
                         return '6文字以上の英数字を入力してください';
                       }
+                      if (isAlphabetNumber(value)) {
+                        return '英数字両方を入力してください';
+                      }
+
                       return null;
                     },
                   ),
@@ -172,6 +180,21 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       _success = false;
     }
   }
+
+  /// email format
+  final String regexEmail = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*\$";
+
+  /// is email
+  bool isEmail(String input) {
+    if (input == null || input.isEmpty) return false;
+    return new RegExp(regexEmail).hasMatch(input);
+  }
+
+  //英数字両方を入力してるかどうかの判断
+  static bool isAlphabetNumber(String str) {
+    return RegExp(r"^[A-Za-z]+$").hasMatch(str) || RegExp(r"^[0-9]+$").hasMatch(str);
+  }
+
   navigateTo(name) {
     Navigator.of(context).pushNamed(name);
   }

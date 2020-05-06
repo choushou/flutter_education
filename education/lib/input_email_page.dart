@@ -64,6 +64,9 @@ class _InputEmailPageState extends State<InputEmailPage> {
                       if (value.isEmpty) {
                         return 'Please enter some text';
                       }
+                      if (!isEmail(value)) {
+                        return '正しいメールを入力してください';
+                      }
                       return null;
                     },
                   ),
@@ -111,6 +114,20 @@ class _InputEmailPageState extends State<InputEmailPage> {
   test() {
     print("item");
   }
+
+  /// email format
+  final String regexEmail = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*\$";
+
+  /// is email
+  bool isEmail(String input) {
+    if (input == null || input.isEmpty) return false;
+    return new RegExp(regexEmail).hasMatch(input);
+  }
+
+  navigateTo(name) {
+    Navigator.of(context).pushNamed(name);
+  }
+
   //sendPasswordResetEmailメソッドを使用して、ユーザーのパスワードを設定
   Future _passwordSetting() async {
     await _auth.sendPasswordResetEmail(email: _userEmail).then((val){
