@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:education/colorUtils.dart';
 import 'package:flutter_share_go/flutter_share_go.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,50 @@ class _DraggablePageState extends State<DraggablePage> {
   List<String> _items1 = List<String>.generate(2, (it) => 'item $it');
   List<String> _items2 = List<String>.generate(2, (it) => 'item $it');
   List<String> _items3 = List<String>.generate(2, (it) => 'item $it');
+
+  //チケットによってカラーが変わる
+  ticketColor(ticket) {
+    switch (ticket) {
+      case '数学':
+        return HexToColor('#004FFF');
+        break;
+      case '英語':
+        return HexToColor('#13E233');
+        break;
+      case '現代文':
+        return HexToColor('#FF52FF');
+        break;
+      case '古典・漢文':
+        return HexToColor('#FF52FF');
+        break;
+      case '化学':
+        return HexToColor('#FF4500');
+        break;
+      case '物理':
+        return HexToColor('#FF4500');
+        break;
+      case '生物':
+        return HexToColor('#FF4500');
+        break;
+      case '地学':
+        return HexToColor('#FF4500');
+        break;
+      case '日本史':
+        return HexToColor('#FF9D00');
+        break;
+      case '世界史':
+        return HexToColor('#FF9D00');
+        break;
+      case '地理':
+        return HexToColor('#FF9D00');
+        break;
+      case '論理・政経':
+      return HexToColor('#FF9D00');
+      break;
+      default:
+        return HexToColor('#CCCCCC');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -338,7 +383,7 @@ class _DraggablePageState extends State<DraggablePage> {
           },
 
           childWhenDragging: Container(
-            color: Colors.blueAccent,
+            color: ticketColor("数学"),
             alignment: Alignment.center,
             foregroundDecoration: BoxDecoration(color: Colors.white30),
             child: Text(
@@ -351,7 +396,7 @@ class _DraggablePageState extends State<DraggablePage> {
             child: Container(
               height: (MediaQuery.of(context).size.width - 26) / 8.6,
               width: MediaQuery.of(context).size.width - 28,
-              color: Colors.blueAccent,
+              color: ticketColor("数学"),
               alignment: Alignment.center,
               child: Text(
                 // _items[index],
@@ -364,7 +409,7 @@ class _DraggablePageState extends State<DraggablePage> {
           data: _items[index],
           child: GestureDetector(
             child: Container(
-              color: Colors.blueAccent,
+              color: ticketColor("数学"),
               alignment: Alignment.center,
               child: Text(
                 // _items[index],
